@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.plane_picture = pygame.image.load("../assets/plane/biplane.png")
         plane_picture_scale_x = 1200
         plane_picture_scale_y = 654
-        self.plane_picture = pygame.transform.smoothscale(self.plane_picture,(plane_picture_scale_x//10, plane_picture_scale_y//10))
+        self.plane_picture = pygame.transform.smoothscale(self.plane_picture,(plane_picture_scale_x//15, plane_picture_scale_y//15))
         
         self.surface = self.plane_picture.convert_alpha()
         self.rect = self.surface.get_rect()
@@ -64,7 +64,7 @@ class Enemy(pygame.sprite.Sprite):
         self.missile_picture = pygame.image.load("../assets/missiles/missile_mixed.png")
         plane_picture_scale_x = 553
         plane_picture_scale_y = 406
-        self.missile_picture = pygame.transform.smoothscale(self.missile_picture,(plane_picture_scale_x//8, plane_picture_scale_y//8))
+        self.missile_picture = pygame.transform.smoothscale(self.missile_picture,(plane_picture_scale_x//12, plane_picture_scale_y//12))
         
         self.surface = self.missile_picture.convert_alpha()
         self.rect = self.surface.get_rect(

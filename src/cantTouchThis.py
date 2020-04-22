@@ -11,7 +11,9 @@ from pygame.locals import (
     K_ESCAPE,
     KEYDOWN,
     QUIT,
+    RLEACCEL,
 )
+
 #Constants
 WHITE=(255,255,255)
 BLACK=(0,0,0)
@@ -21,8 +23,12 @@ SCREEN_HEIGHT = 500
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player,self).__init__()
-        self.surface = pygame.Surface((30,30))
-        self.surface.fill(BLACK)
+        self.plane_picture = pygame.image.load("../assets/plane/biplane.png")
+        plane_picture_scale_x = 1200
+        plane_picture_scale_y = 654
+        self.plane_picture = pygame.transform.scale(self.plane_picture,(plane_picture_scale_x//10, plane_picture_scale_y//10))
+        
+        self.surface = self.plane_picture.convert_alpha()
         self.rect = self.surface.get_rect()
 
     def update_position(self, input_dict):

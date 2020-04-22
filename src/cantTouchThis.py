@@ -15,8 +15,9 @@ from pygame.locals import (
 )
 
 #Constants
-WHITE=(255,255,255)
-BLACK=(0,0,0)
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+SKY_COLOR = (39, 145, 225)
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
 
@@ -26,20 +27,22 @@ class Player(pygame.sprite.Sprite):
         self.plane_picture = pygame.image.load("../assets/plane/biplane.png")
         plane_picture_scale_x = 1200
         plane_picture_scale_y = 654
-        self.plane_picture = pygame.transform.scale(self.plane_picture,(plane_picture_scale_x//10, plane_picture_scale_y//10))
+        self.plane_picture = pygame.transform.smoothscale(self.plane_picture,(plane_picture_scale_x//10, plane_picture_scale_y//10))
         
         self.surface = self.plane_picture.convert_alpha()
         self.rect = self.surface.get_rect()
 
+        self.player_speed = 10
+
     def update_position(self, input_dict):
         if input_dict[K_UP]:
-            self.rect.move_ip(0,-5)
+            self.rect.move_ip(0,-self.player_speed)
         if input_dict[K_DOWN]:
-            self.rect.move_ip(0,5)
+            self.rect.move_ip(0,self.player_speed)
         if input_dict[K_LEFT]:
-            self.rect.move_ip(-5,0)
+            self.rect.move_ip(-self.player_speed,0)
         if input_dict[K_RIGHT]:
-            self.rect.move_ip(5,0)
+            self.rect.move_ip(self.player_speed,0)
 
         self.mantain_boundaries()
 
@@ -61,7 +64,7 @@ class Enemy(pygame.sprite.Sprite):
         self.missile_picture = pygame.image.load("../assets/missiles/missile_mixed.png")
         plane_picture_scale_x = 553
         plane_picture_scale_y = 406
-        self.missile_picture = pygame.transform.scale(self.missile_picture,(plane_picture_scale_x//8, plane_picture_scale_y//8))
+        self.missile_picture = pygame.transform.smoothscale(self.missile_picture,(plane_picture_scale_x//8, plane_picture_scale_y//8))
         
         self.surface = self.missile_picture.convert_alpha()
         self.rect = self.surface.get_rect(
@@ -113,7 +116,7 @@ while running:
     player.update_position(pressed_keys)
     enemies.update()
 
-    screen.fill(WHITE)
+    screen.fill(SKY_COLOR)
     for entity in all_sprites:
         screen.blit(entity.surface, entity.rect)
 

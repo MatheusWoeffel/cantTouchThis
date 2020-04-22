@@ -57,8 +57,13 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super(Enemy,self).__init__()
-        self.surface = pygame.surface.Surface((20,20))
-        self.surface.fill(BLACK)
+
+        self.missile_picture = pygame.image.load("../assets/missiles/missile_mixed.png")
+        plane_picture_scale_x = 553
+        plane_picture_scale_y = 406
+        self.missile_picture = pygame.transform.scale(self.missile_picture,(plane_picture_scale_x//8, plane_picture_scale_y//8))
+        
+        self.surface = self.missile_picture.convert_alpha()
         self.rect = self.surface.get_rect(
             center=( random.randint(SCREEN_WIDTH + 20, SCREEN_WIDTH + 100),
                      random.randint(0, SCREEN_HEIGHT)
@@ -76,7 +81,7 @@ class Enemy(pygame.sprite.Sprite):
 
 #New event
 ADD_ENEMY = pygame.USEREVENT + 1
-pygame.time.set_timer(ADD_ENEMY, 100)
+pygame.time.set_timer(ADD_ENEMY, 500)
 
 #Clock set
 clock = pygame.time.Clock()

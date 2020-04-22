@@ -91,7 +91,13 @@ clock = pygame.time.Clock()
 
 #Program start
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-screen.fill(WHITE)
+pygame.display.set_caption("Can't Touch This")
+plane_image = pygame.image.load("../assets/plane/biplane.png")
+plane_scale_x = 1200
+plane_scale_y = 654
+plane_image = pygame.transform.scale(plane_image, (32,32))
+pygame.display.set_icon(plane_image)
+
 
 player = Player()
 enemies = pygame.sprite.Group()

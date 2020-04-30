@@ -2,6 +2,7 @@ import pygame
 import random
 from enemy import Enemy
 from player import Player
+from cloud import Cloud
 
 pygame.init()
 
@@ -26,9 +27,13 @@ SCREEN_HEIGHT = 500
 
 
 
-#New event
+#New add_enemy event
 ADD_ENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADD_ENEMY, 500)
+
+#New add_cloud event
+ADD_CLOUD = pygame.USEREVENT + 2
+pygame.time.set_timer(ADD_CLOUD, 1000)
 
 #Clock set
 clock = pygame.time.Clock()
@@ -47,6 +52,7 @@ player = Player(SCREEN_HEIGHT, SCREEN_WIDTH)
 enemies = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
+clouds = pygame.sprite.Group()
 
 running = True
 while running:
@@ -61,12 +67,22 @@ while running:
             new_enemy = Enemy(SCREEN_HEIGHT, SCREEN_WIDTH)
             all_sprites.add(new_enemy)
             enemies.add(new_enemy)
+        
+        elif event.type == ADD_CLOUD:
+            new_cloud = Cloud(SCREEN_HEIGHT, SCREEN_WIDTH)
+            clouds.add(new_cloud)
     
     pressed_keys = pygame.key.get_pressed()
     player.update_position(pressed_keys)
     enemies.update()
+    clouds.update()
 
     screen.fill(SKY_COLOR)
+
+    #Clouds are drawn first, so others sprites overlap it
+    for cloud in clouds:
+        screen.blit(cloud.surface, cloud.rect)
+
     for entity in all_sprites:
         screen.blit(entity.surface, entity.rect)
 

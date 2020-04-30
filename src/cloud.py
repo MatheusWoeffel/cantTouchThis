@@ -11,11 +11,11 @@ class Cloud(pygame.sprite.Sprite):
         cloud_image = pygame.transform.smoothscale(cloud_image, (CLOUD_WIDTH_SCALE//4, CLOUD_HEIGHT_SCALE//4))
         self.surface = cloud_image.convert_alpha()
         self.rect = self.surface.get_rect(
-            center = (random.randint(SCREEN_WIDTH + 20, SCREEN_WIDTH + 100),
+            center = (random.randint(SCREEN_WIDTH + 100, SCREEN_WIDTH + 150),
                       random.randint(0, SCREEN_HEIGHT//2),
             )
         )
-        self.speed = 5
+        self.speed = 3
 
 
     def update(self):
